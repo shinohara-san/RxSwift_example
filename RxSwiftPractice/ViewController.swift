@@ -14,7 +14,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var myButton: UIButton!
     @IBOutlet weak var myLabel: UILabel!
     
-    private let count: BehaviorRelay<Int> = BehaviorRelay(value: 0) //イベントの検知に加えイベントの発生もできる便利なラッパーのひとつ
+    private let count: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+    //イベントの検知に加えイベントの発生もできる便利なラッパーのひとつ
+    //.nextのみ流す(.errorや.completedが流れてこないことを保証)
+    //BehaviorRelayは初期値、valueプロパティを持ち、現在地を流す
     private let disposeBag: DisposeBag = DisposeBag() //
     
     override func viewDidLoad() {
@@ -37,6 +40,7 @@ class ViewController: UIViewController {
     
     private func increment() {
         count.accept(count.value + 1)
+        //nextイベントを流すacceptメソッド
     }
     
     // 2.の処理
